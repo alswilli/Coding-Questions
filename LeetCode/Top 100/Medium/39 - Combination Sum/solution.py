@@ -44,35 +44,35 @@
                  
 #         return output
 
-class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        def recurse(target, i, currNums, results):
-            for j in range(i, len(candidates)):
-                candidate = candidates[j]
-                print("CANDIDATE: " + str(candidate))
-                print("TARGET: " + str(target))
-                if candidate > target:
-                    print("GREATER: " + str(currNums))
-                    break
-                # currNums += [candidate]
-                currNums.append(candidate)
-                # print(currNums)
-                if candidate < target:
-                    print("LESS: " + str(currNums))
-                    print(j)
-                    recurse(target - candidate, j, currNums, results)
-                else:
-                    print("EQUAL: " + str(currNums))
-                    results.append(list(currNums))
-                currNums.pop()
-            return
+# class Solution:
+#     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+#         def recurse(target, i, currNums, results):
+#             for j in range(i, len(candidates)):
+#                 candidate = candidates[j]
+#                 print("CANDIDATE: " + str(candidate))
+#                 print("TARGET: " + str(target))
+#                 if candidate > target:
+#                     print("GREATER: " + str(currNums))
+#                     break
+#                 # currNums += [candidate]
+#                 currNums.append(candidate)
+#                 # print(currNums)
+#                 if candidate < target:
+#                     print("LESS: " + str(currNums))
+#                     print(j)
+#                     recurse(target - candidate, j, currNums, results)
+#                 else:
+#                     print("EQUAL: " + str(currNums))
+#                     results.append(list(currNums))
+#                 currNums.pop()
+#             return
         
-        candidates.sort()
-        output = []
-        # currSum = 0
-        currNums = []
-        recurse(target, 0, currNums, output)
-        return output
+#         candidates.sort()
+#         output = []
+#         # currSum = 0
+#         currNums = []
+#         recurse(target, 0, currNums, output)
+#         return output
         
 
 
@@ -95,3 +95,33 @@ class Solution:
 #                 results.append(list(combo))
 #             combo.pop()
 #         return
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def recurse(sum, currSeq, index, out):
+            if index > len(candidates):
+                return out
+            for i in range(index, len(candidates)):
+                num = sum + candidates[i]
+                seq = currSeq + [candidates[i]]
+                print(seq)
+                if num > target:
+                    return out
+                elif num == target:
+                    out.append(seq)
+                output = recurse(num, seq, i, out)
+                # seq = currSeq + [nums[i]]
+                # out.append(seq)
+                # out = recurse(seq, i+1, out)
+            return out
+        output = []
+        candidates.sort()
+        for i in range(0, len(candidates)):
+            num = candidates[i]
+            seq = [num]
+            if num > target:
+                return output
+            elif num == target:
+                output.append(seq)
+            output = recurse(num, seq, i, output)
+        return output
