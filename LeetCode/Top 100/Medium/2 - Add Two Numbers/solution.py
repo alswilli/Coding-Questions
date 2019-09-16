@@ -18,7 +18,7 @@ class Solution:
     
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         # l1Array = []
-        # l2Array = []
+        # l2Array = [] #another test
         l1Total = 0
         l2Total = 0
         l1Mult = 1
